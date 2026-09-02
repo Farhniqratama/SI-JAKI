@@ -9,6 +9,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\PerguruanTinggiController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\DataScienceController;
 
 // Route untuk halaman maintenance (dapat diakses oleh semua pengguna)
 Route::get('/maintenance', [MaintenanceController::class, 'showMaintenance'])->name('maintenance.show');
@@ -26,6 +27,16 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware(['auth'])->group(function () {
     // Dashboard - semua peran bisa akses
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Data Science & AI Hub
+    Route::prefix('data-science')->group(function () {
+        Route::get('/', [DataScienceController::class, 'index'])->name('data-science.index');
+        Route::get('/pt/{uuid}', [DataScienceController::class, 'detail'])->name('data-science.detail');
+        Route::get('/pt-summary/{uuid}', [DataScienceController::class, 'ptSummary'])->name('data-science.pt-summary');
+        Route::post('/recalculate', [DataScienceController::class, 'recalculate'])->name('data-science.recalculate');
+        Route::post('/simulate', [DataScienceController::class, 'simulate'])->name('data-science.simulate');
+        Route::post('/solve', [DataScienceController::class, 'solve'])->name('data-science.solve');
+    });
 
     // Sesuaikan route name untuk AJAX pencarian
     Route::post('/search', [SearchController::class, 'search'])->name('search');
@@ -119,4 +130,5 @@ Route::prefix('api')->group(function () {
     Route::post('/laporan', [ApiController::class, 'storeLaporan']);
     Route::put('/laporan/{uuid}', [ApiController::class, 'updateLaporan']);
     Route::delete('/laporan/{uuid}', [ApiController::class, 'deleteLaporan']);
+    Route::get('/data-science/insights', [ApiController::class, 'getDataScienceInsights']);
 });

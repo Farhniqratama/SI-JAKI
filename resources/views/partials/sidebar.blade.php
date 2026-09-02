@@ -87,10 +87,18 @@
                     </ul>
                 </li>
 
-                <li class="nxl-item">
+                <li class="nxl-item {{ request()->routeIs('histori-pt.*') ? 'active' : '' }}">
                     <a href="{{ route('histori-pt.index')}}" class="nxl-link">
                         <span class="nxl-micon"><i class="feather-clock"></i></span>
                         <span class="nxl-mtext">Histori PT</span>
+                    </a>
+                </li>
+
+                <li class="nxl-item {{ request()->routeIs('data-science.*') ? 'active' : '' }}">
+                    <a href="{{ route('data-science.index')}}" class="nxl-link">
+                        <span class="nxl-micon"><i class="feather-cpu text-primary"></i></span>
+                        <span class="nxl-mtext">Data Science & AI</span>
+                        <span class="badge bg-primary-subtle text-primary ms-auto fs-10 fw-bold px-2 py-1 rounded-pill">100% DS</span>
                     </a>
                 </li>
 

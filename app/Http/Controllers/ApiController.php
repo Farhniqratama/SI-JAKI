@@ -200,4 +200,14 @@ class ApiController extends Controller
             'message' => 'Laporan berhasil dihapus.'
         ]);
     }
+
+    // Data Science & AI Hub Insights for Mobile App
+    public function getDataScienceInsights(\App\Services\DataScienceService $dsService)
+    {
+        $insights = $dsService->getInsights();
+        return response()->json([
+            'success' => true,
+            'data' => $insights
+        ]);
+    }
 }
